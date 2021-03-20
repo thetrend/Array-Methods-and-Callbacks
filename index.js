@@ -117,12 +117,10 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(/* code here */) {
-   /* code here */
+function getAverageGoals(getFinals, array) {
+    const list = getFinals => getFinals(array);
+    return list.reduce();
 }
-
-
-
 
 /// 🥅 STRETCH 🥅 ///
 
