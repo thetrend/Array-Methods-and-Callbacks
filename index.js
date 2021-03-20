@@ -54,8 +54,8 @@ Use the higher-order function called getYears to do the following:
 2. Receive a callback function getFinals from task 2 
 3. Return an array called years containing all of the years in the getFinals data set*/
 
-function getYears(array, getFinals) {
-    const finalsList = getFinals(array);
+function getYears(array, cb) {
+    const finalsList = cb(array);
     let yearsList = [];
     finalsList.forEach((data) => yearsList.push(data.Year));
     return yearsList;
@@ -70,8 +70,8 @@ Use the higher-order function getWinners to do the following:
 3. Determines the winner (home or away) of each `finals` game. 
 4. Returns the names of all winning countries in an array called `winners` */ 
 
-function getWinners(array, getFinals) {
-    const finalsList = getFinals(array);
+function getWinners(array, gF) {
+    const finalsList = gF(array);
     let winnersList = [];
     finalsList.forEach((data) => {
         if (data['Home Team Goals'] > data['Away Team Goals']) {
@@ -95,13 +95,15 @@ Use the higher-order function getWinnersByYear to do the following:
 hint: the strings returned need to exactly match the string in step 4.
  */
 
-function getWinnersByYear(array, getYears, getWinners) {
+function getWinnersByYear(array, getYearsCb, getWinnersCb) {
     let yearlyWinners = [];
-    let years = getYears(array, getFinals);
-    let winners = getWinners(array, getFinals);
-    for (let i = 0; i < years.length; i++) {
-        yearlyWinners.push(`In ${years[i]}, ${winners[i]} won the world cup!`);
-    }
+    let years = getYearsCb(array, getFinals);
+    let winners = getWinnersCb(array, getFinals);
+    // for (let i = 0; i < years.length; i++) {
+    //     yearlyWinners.push(`In ${years[i]}, ${winners[i]} won the world cup!`);
+    // }
+    // use a forEach loop
+    years.forEach((year, i) => yearlyWinners.push(`In ${year}, ${winners[i]} won the world cup!`));
     return yearlyWinners;
 }
 
@@ -117,10 +119,17 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(getFinals, array) {
-    const list = getFinals => getFinals(array);
-    return list.reduce();
+function getAverageGoals(data) {
+    const home = data.reduce((sum, game) => {
+        return sum + game['Home Team Goals']
+    }, 0);
+    const away = data.reduce((sum, game) => {
+        return sum + game['Away Team Goals']
+    }, 0);
+    return ((home + away) / data.length).toFixed(2);
 }
+
+console.log(getAverageGoals(getFinals(fifaData)));
 
 /// 🥅 STRETCH 🥅 ///
 
