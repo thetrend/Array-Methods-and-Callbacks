@@ -9,26 +9,28 @@ const teams2014 = fifaData.filter((team) => {
     return team.Year === 2014 && team.Stage === 'Final';
   });
 
-  console.log(teams2014);
-
 const finals = teams2014.map((data) => {
-    return { homeTeam: data['Home Team Name'], awayTeam: data['Away Team Name'], homeGoals: data['Home Team Goals'], awayGoals: data['Home Team Goals'] };0
+    return { homeTeam: data['Home Team Name'], awayTeam: data['Away Team Name'], homeGoals: data['Home Team Goals'], awayGoals: data['Away Team Goals'] };
 });
 
 //(a) Home Team name for 2014 world cup final
-console.log(finals.homeTeam);
+console.log(finals[0].homeTeam);
 
 //(b) Away Team name for 2014 world cup final
-console.log(finals.awayTeam);
+console.log(finals[0].awayTeam);
 
 //(c) Home Team goals for 2014 world cup final
-console.log(finals.homeGoals);
+console.log(finals[0].homeGoals);
 
 //(d) Away Team goals for 2014 world cup final
-console.log(finals.awayGoals);
+console.log(finals[0].awayGoals);
 
 //(e) Winner of 2014 world cup final */
-
+if (finals[0].homeGoals > finals[0].awayGoals) {
+    console.log(finals[0].homeTeam);
+} else {
+    console.log(finals[0].awayTeam);
+}
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 2: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
 Use getFinals to do the following:
@@ -38,8 +40,10 @@ Use getFinals to do the following:
 hint - you should be looking at the stage key inside of the objects
 */
 
-function getFinals(/* code here */) {
-   /* code here */
+function getFinals(data) {
+    return data.filter((team) => {
+        return team.Stage === 'Final';
+    });
 }
 
 
